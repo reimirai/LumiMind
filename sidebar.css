@@ -91,3 +91,8 @@ nav ul li.active {
     
   bottom: 0;  
 }
+
+ul li a {
+  color: inherit;        
+  text-decoration: none; 
+}
