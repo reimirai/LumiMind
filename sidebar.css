@@ -1,30 +1,17 @@
-/* Base Styles (Apply to both sidebars if common) */
-body {
-  margin: 0;
-  font-family: sans-serif;
-  /* Or your preferred font */
-}
 
-ul {
-  margin: 0;
-  padding: 0;
-}
 
-a {
+.main-sidebar1 a {
   text-decoration: none;
   color: inherit;
   display: block;
   /* Make the entire link clickable */
 }
 
-/* Compact Main Sidebar */
-.main-sidebar {
-  width: 60px;
-  /* Slightly wider for better icon spacing */
-  background-color: #f8f9fa;
-  /* Light gray background */
-  color: #495057;
-  /* Dark gray text */
+
+.main-sidebar1 {
+  width: 60px; /* Slightly wider for better icon spacing */
+  background-color: #f8f9fa; /* Light gray background */
+  color: #495057; /* Dark gray text */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,18 +26,17 @@ a {
   /* Subtle shadow */
 }
 
-.main-logo {
-  font-size: 1.2rem;
-  /* Adjust font size */
+.main-logo1 {
+  font-size: 1.2rem; /* Adjust font size */
   margin-bottom: 15px;
 }
 
-.main-logo img {
+.main-logo1 img {
   width: 30px;
   height: 30px;
 }
 
-.main-sidebar ul {
+.main-sidebar1 ul {
   list-style: none;
   width: 100%;
   display: flex;
@@ -62,21 +48,19 @@ a {
   /* Push last item to the bottom */
 }
 
-.main-sidebar li {
-  padding: 12px 0;
-  /* Adjust padding */
+.main-sidebar1 li {
+  padding: 12px 0; /* Adjust padding */
   text-align: center;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   /* Smoother transition */
 }
 
-.main-sidebar li:hover {
-  background-color: #eef864;
-  /* Lighter gray on hover/active */
+.main-sidebar1 li:hover{
+  background-color: #eef864; /* Lighter gray on hover/active */
 }
 
-.main-sidebar li a {
+.main-sidebar1 li a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,30 +69,26 @@ a {
   /* Add some padding around the icon */
 }
 
-.main-sidebar li img {
-  width: 24px;
-  /* Adjust icon size */
+.main-sidebar1 li img {
+  width: 24px; /* Adjust icon size */
   height: 24px;
   margin-bottom: 5px;
   /* Space between icon and text (if you add text later) */
 }
 
 /* Logout in Main Sidebar */
-.main-sidebar li#logout {
-  margin-top: auto;
-  /* Push to the bottom */
-  border-top: 1px solid #dee2e6;
-  /* Add a separator */
+.main-sidebar1 li#logout {
+  margin-top: auto; /* Push to the bottom */
+  border-top: 1px solid #dee2e6; /* Add a separator */
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
-.main-sidebar li#logout a {
-  color: #dc3545;
-  /* Example red color for logout */
+.main-sidebar1 li#logout a {
+  color: #dc3545; /* Example red color for logout */
 }
 
-.main-sidebar li#logout:hover {
-  background-color: #fdecea;
-  /* Light red on hover */
+.main-sidebar1 li#logout:hover {
+  background-color: #fdecea; /* Light red on hover */
 }
+

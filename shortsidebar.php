@@ -1,9 +1,13 @@
 <link rel="stylesheet" href="sidebar.css" />
-<aside class="main-sidebar">
-    <h2 class="main-logo">
+<aside class="main-sidebar1" id="shortSidebar" style="display: none;">
+    <h2 class="main-logo1">
+        
         <img src="icon/Logo.png" id="Logo" alt="Logo">
     </h2>
     <ul>
+        <li class="menuitem" id="toggleShortSidebar">
+            ☰ 
+        </li>
         <li>
             <a href="Home.php" class="menu-item">
                 <img src="icon/home.png" alt="Home">
@@ -15,10 +19,10 @@
             </a>
         </li>
         <li>
-            <a href="Task.php" class="menu-item">
-                <img src="icon/task.png" alt="Notes">
-            </a>
-        </li>
+          <a href="Task.php" class="menu-item">
+              <img src="icon/task.png" alt="Notes">
+          </a>
+      </li>
         <li>
             <a href="Community.php" class="menu-item">
                 <img src="icon/community.png" alt="Community">
@@ -32,35 +36,31 @@
 
 
 
+<main class="content">
+    </main>
 
-<style>
-    /* Basic styling for the main content area */
-    .content {
-        margin-left: 60px;
-        /* Adjust based on main-sidebar width */
-        padding: 20px;
-    }
-
-    .sidebar:not(.hidden)+.content {
-        margin-left: 60px + 250px;
-        /* Adjust based on both sidebar widths */
-    }
-</style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleBtn = document.getElementById('toggleBtn');
-        const sidebar = document.querySelector('.sidebar');
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleShortSidebar = document.getElementById('toggleShortSidebar');  // For short sidebar
+    const toggleLongSidebar = document.getElementById('toggleLongSidebar');  // For long sidebar
+    
+    const shortSidebar = document.getElementById('shortSidebar');
+    const longSidebar = document.getElementById('longSidebar');
+    const content = document.querySelector('.content');
 
-        if (toggleBtn && sidebar) {
-            toggleBtn.addEventListener('click', function () {
-                sidebar.classList.toggle('hidden');
-                // You might need to adjust the main content's margin here as well
-                const content = document.querySelector('.content');
-                if (content) {
-                    content.style.marginLeft = sidebar.classList.contains('hidden') ? '60px' : '310px';
-                }
-            });
-        }
-    });
+    if (toggleShortSidebar && toggleLongSidebar) {
+        toggleShortSidebar.addEventListener('click', function () {
+            shortSidebar.style.display = 'none';
+            longSidebar.style.display = 'block';
+            content.style.marginLeft = '250px';  
+        });
+
+        toggleLongSidebar.addEventListener('click', function () {
+            longSidebar.style.display = 'none';
+            shortSidebar.style.display = 'block';
+            content.style.marginLeft = '60px'; 
+        });
+    }
+});
 </script>
