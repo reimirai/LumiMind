@@ -24,7 +24,6 @@ a {
   flex-direction: column;
   align-items: center;
   padding: 10px 0; /* Reduced top padding */
-  position: fixed; /* Fixed position on the left */
   top: 0;
   left: 0;
   bottom: 0;
