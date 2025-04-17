@@ -60,6 +60,7 @@ a {
     transition: background-color 0.2s ease-in-out; /* Smoother transition */
     display: flex;
     align-items: center; /* Vertically align icon and text */
+     
 }
 
 .main-sidebar li:hover,
@@ -88,4 +89,45 @@ a {
 
 .main-sidebar #logout img {
     margin-right: 10px;
+}
+
+.sidebar {
+	
+  width: 240px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+    position: fixed;
+  left: 202px;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.sidebar.hidden {
+  transform: translateX(-300%);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+#Logo {
+  width: 75%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#toggleBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
