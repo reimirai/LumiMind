@@ -2,7 +2,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet" />
 
 <main class="main-layout">
-    <section class="content">
+    <section class="forumcontent">
         <header class="content-header">
             <nav class="tabs">
                 <button class="tab-button tab-active">
