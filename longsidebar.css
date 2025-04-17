@@ -1,104 +1,91 @@
+/* Base Styles (Apply to both sidebars if common) */
+body {
+    margin: 0;
+    font-family: sans-serif; /* Or your preferred font */
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Ensure no default list styles */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* Make the entire link clickable */
+}
+
+/* Wider Main Sidebar */
 .main-sidebar {
-   width: 200px;
-  background-color: white;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
+    width: 200px;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    padding: 20px; /* Consistent padding */
+    position: fixed; /* Fixed position on the left */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1010; /* Higher than the expanding sidebar */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 .main-logo {
-  font-size: 24px;
-  margin-bottom: 20px;
+    font-size: 1.5rem; /* Adjust font size */
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center; /* Vertically align logo and image */
+}
+
+.main-logo img {
+    width: 24px; /* Adjust icon size */
+    height: 24px;
+    margin-right: 10px; /* Space between logo and image */
 }
 
 .main-sidebar ul {
-  list-style: none;
-  width: 100%;
+    width: 100%;
+    flex-grow: 1; /* Allow list to take up available vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items from the top */
 }
 
 .main-sidebar li {
-  padding: 20px 0;
-  text-align: center;
-  cursor: pointer;
-  transition: background 0.3s;
+    padding: 15px 20px; /* Adjust padding */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Smoother transition */
+    display: flex;
+    align-items: center; /* Vertically align icon and text */
 }
 
 .main-sidebar li:hover,
 .main-sidebar li.active {
-  background-color: gray;
+    background-color: #eef864; /* Light gray on hover/active */
 }
 
-
-.sidebar {
-	
-  width: 240px;
-  background-color: #fff;
-  border-right: 1px solid #ddd;
-  transition: transform 0.3s ease;
-  transform: translateX(0);
-    position: fixed;
-  left: 202px;
-  top: 0;
-  bottom: 0;
-  z-index: 1000;
+.main-sidebar li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* Space between icon and text */
 }
 
-.sidebar.hidden {
-  transform: translateX(-300%);
+/* Logout in Main Sidebar */
+.main-sidebar #logout {
+    margin-top: auto; /* Push to the bottom */
+    border-top: 1px solid #eee; /* Add a separator */
+    padding: 15px 20px;
 }
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
+.main-sidebar #logout a {
+    color: #dc3545; /* Example red color for logout */
+    display: flex;
+    align-items: center;
 }
 
-.logo {
-  width: 30px;
-  height: 30px;
-}
-
-#toggleBtn {
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-nav ul {
-  list-style: none;
-  padding: 10px 0;
-}
-
-nav ul li {
-  padding: 15px 20px;
-  cursor: pointer;
-  border-left: 4px solid transparent;
-}
-
-nav ul li:hover,
-nav ul li.active {
-  background-color: #f0f0ff;
-  border-left: 4px solid #865DFF;
-  color: #865DFF;
-}
-#logout {
-  position: fixed;
-  bottom: 0;
-  left: 70px;
-  width: 100%;
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 10px 0;
-}
-
-ul li a {
-  color: inherit;        
-  text-decoration: none; 
+.main-sidebar #logout img {
+    margin-right: 10px;
 }

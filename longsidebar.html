@@ -1,26 +1,73 @@
 <link rel="stylesheet" href="longsidebar.css" />
-    <aside class="main-sidebar">
-      <h2 class="main-logo"><img src="Logo.png" id="Logo" alt="Logo"> </h2>
-      <ul>
-        <li> <a href="Home.php" class="menu-item">
-    <i class="icon-home"><img src="icon/home.png"> Mood Tracker </i> 
-  </a>
+<aside class="main-sidebar">
+    <h2 class="main-logo">
+        <img src="icon/Logo.png" id="Logo" alt="Logo">
+     </h2>
+    <ul>
+        <li>
+            <a href="Home.php" class="menu-item">
+                <img src="icon/home.png" alt="Mood Tracker">
+                Mood Tracker
+            </a>
         </li>
-        <li><a href="StickyNote.php" class="menu-item">
-    <i class="icon-note"></i><img src="icon/note.jpg"> Sticky Notes Planner
-  </a></li>
-        <li class="active" id="TaskList"> <a href="task.php" class="menu-item">
-    <i class="TaskList" ></i><img src="icon/task.png"> Task List
-  </a></li>
-  <li> <a href="Community.php" class="menu-item">
-    <i class="icon-chat"></i><img src="icon/community.png"> Community & Peer Support
-  </a></li>
-  
- 
-   <li id="logout"> <a href="#" class="menu-item">
-   <a href="#" class="menu-item">
-    <i class="icon-logout"></i> Logout
-  </a>
- </li>
-      </ul>
-    </aside>
+        <li>
+            <a href="StickyNote.php" class="menu-item">
+                <img src="icon/note.jpg" alt="Sticky Notes Planner">
+                Sticky Notes Planner
+            </a>
+        </li>
+
+        <li>
+            <a href="Task.php" class="menu-item">
+                <img src="icon/task.png" alt="Sticky Notes Planner">
+                Sticky Notes Planner
+            </a>
+        </li>
+        
+        <li>
+            <a href="Community.php" class="menu-item">
+                <img src="icon/community.png" alt="Community & Peer Support">
+                Community & Peer Support
+            </a>
+        </li>
+    </ul>
+    <li id="logout">
+        <a href="#" class="menu-item">
+            Logout
+        </a>
+    </li>
+</aside>
+
+
+
+<main class="content">
+    </main>
+
+<style>
+    /* Basic styling for the main content area */
+    .content {
+        margin-left: 200px; /* Adjust based on main-sidebar width */
+        padding: 20px;
+    }
+
+    .sidebar:not(.hidden) + .content {
+        margin-left: 200px + 240px; /* Adjust based on both sidebar widths */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('toggleBtn');
+        const sidebar = document.querySelector('.sidebar');
+
+        if (toggleBtn && sidebar) {
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('hidden');
+                const content = document.querySelector('.content');
+                if (content) {
+                    content.style.marginLeft = sidebar.classList.contains('hidden') ? '200px' : '440px';
+                }
+            });
+        }
+    });
+</script>

@@ -1,98 +1,94 @@
+/* Base Styles (Apply to both sidebars if common) */
+body {
+  margin: 0;
+  font-family: sans-serif; /* Or your preferred font */
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Make the entire link clickable */
+}
+
+/* Compact Main Sidebar */
 .main-sidebar {
-   width: 50px;
-  background-color: white;
-  color: black;
+  width: 60px; /* Slightly wider for better icon spacing */
+  background-color: #f8f9fa; /* Light gray background */
+  color: #495057; /* Dark gray text */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  padding: 10px 0; /* Reduced top padding */
+  position: fixed; /* Fixed position on the left */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1010; /* Higher than the expanding sidebar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .main-logo {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 1.2rem; /* Adjust font size */
+  margin-bottom: 15px;
+}
+
+.main-logo img {
+  width: 30px;
+  height: 30px;
 }
 
 .main-sidebar ul {
   list-style: none;
   width: 100%;
+  display: flex; /* Align items in a column */
+  flex-direction: column;
+  height: 100%; /* Take up full height */
+  justify-content: space-between; /* Push last item to the bottom */
 }
 
 .main-sidebar li {
-  padding: 10px 0;
+  padding: 12px 0; /* Adjust padding */
   text-align: center;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.2s ease-in-out; /* Smoother transition */
 }
 
-.main-sidebar li:hover,
-.main-sidebar li.active {
-  background-color: gray;
+.main-sidebar li:hover{
+  background-color: #eef864; /* Lighter gray on hover/active */
 }
 
-
-.sidebar {
-	
-  width: 240px;
-  background-color: #fff;
-  border-right: 1px solid #ddd;
-  transition: transform 0.3s ease;
-  transform: translateX(0);
-    position: fixed;
-  left: 55px;
-  top: 0;
-  bottom: 0;
-  z-index: 1000;
-}
-
-.sidebar.hidden {
-  transform: translateX(-300%);
-}
-
-.sidebar-header {
+.main-sidebar li a {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
+  justify-content: center;
+  padding: 8px; /* Add some padding around the icon */
 }
 
-.logo {
-  width: 30px;
-  height: 30px;
+.main-sidebar li img {
+  width: 24px; /* Adjust icon size */
+  height: 24px;
+  margin-bottom: 5px; /* Space between icon and text (if you add text later) */
 }
 
-#toggleBtn {
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
+/* Logout in Main Sidebar */
+.main-sidebar li#logout {
+  margin-top: auto; /* Push to the bottom */
+  border-top: 1px solid #dee2e6; /* Add a separator */
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
-nav ul {
-  list-style: none;
-  padding: 10px 0;
+.main-sidebar li#logout a {
+  color: #dc3545; /* Example red color for logout */
 }
 
-nav ul li {
-  padding: 15px 20px;
-  cursor: pointer;
-  border-left: 4px solid transparent;
+.main-sidebar li#logout:hover {
+  background-color: #fdecea; /* Light red on hover */
 }
 
-nav ul li:hover,
-nav ul li.active {
-  background-color: #f0f0ff;
-  border-left: 4px solid #865DFF;
-  color: #865DFF;
-}
-#logout {
-    
-  bottom: 0;  
-}
-
-ul li a {
-  color: inherit;        
-  text-decoration: none; 
-}
