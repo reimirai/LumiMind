@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="../css/sidebar.css" />
+<aside class="main-sidebar" id="longSidebar">
+  <div class="logo-section">
+    <img src="../icon/Logo.png" class="logo" />
+    <span class="website-name">LumiMind</span>
+  </div>
+  <ul class="nav-list">
+      <li class="nav-item has-submenu expanded">
+      <a href="../MoodTracker/mood_sections.php" class="nav-link menu-heading">
+        <img src="../icon/home.png" class="nav-icon" />
+        <span>Dashboard</span>
+      </a>
+    </li>
+     <li class="nav-item has-submenu expanded">
+      <a href="javascript:void(0);" class="nav-link menu-heading">
+        <img src="../icon/note.jpg" class="nav-icon" />
+        <span>Sticky Notes</span>
+      </a>
+      <ul class="submenu" Style="Display: None">
+        <li class="submenu-item">
+          <a href="available_task.html" class="submenu-link">Available Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="accepted_task.html" class="submenu-link">Accepted Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="rewards.html" class="submenu-link">Rewards</a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="javascript:void(0);" class="nav-link menu-heading">
+        <img src="../icon/task.png" class="nav-icon" />
+        <span>Task & Rewards</span>
+      </a>
+      <ul class="submenu" Style="Display: None">
+        <li class="submenu-item">
+          <a href="../task/add-task.php" class="submenu-link">Available Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="../task/task-list.php" class="submenu-link">Accepted Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="../task/rewards.php" class="submenu-link">Rewards</a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="javascript:void(0);" class="nav-link menu-heading">
+        <img src="../icon/community.png" class="nav-icon" />
+        <span>Community & Peer</span>
+      </a>
+      <ul class="submenu" Style="Display: None">
+        <li class="submenu-item">
+            <a href="../Community&Peer/community.php" class="submenu-link">Forum</a>
+      </ul>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="javascript:void(0);" class="nav-link menu-heading">
+        <img src="../icon/profile.png" class="nav-icon" />
+        <span>Profile</span>
+      </a>
+    </li>
+  </ul>
+  <div class="logout-section">
+    <a href="logout.html" class="logout-link">
+      <img src="../icon/logout.png" class="nav-icon" />
+      <span>Logout</span>
+    </a>
+  </div>
+  <button id="toggleShortSidebar">≪</button>
+</aside>
+
+<aside class="main-sidebar short" id="shortSidebar" style="display: none;">
+  <div class="logo-section">
+    <img src="../icon/Logo.png" class="logo" />
+  </div>
+  <ul class="nav-list">
+       <li class="nav-item">
+           <a href="../MoodTracker/mood_sections.php" class="nav-link">
+        <img src="../icon/Home.png" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="../Notes/StickyNotes.php" class="nav-link">
+        <img src="../icon/note.jpg" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="../task/add-task.php" class="nav-link">
+        <img src="../icon/task.png" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item">
+        <a href="../Community&Peer/community.php" class="nav-link">
+        <img src="../icon/community.png" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="javascript:void(0);" class="nav-link menu-heading">
+        <img src="../icon/profile.png" class="nav-icon" />
+      </a>
+    </li>
+  </ul>
+  <div class="logout-section">
+    <a href="logout.html" class="logout-link">
+      <img src="../icon/logout.png" class="nav-icon" />
+    </a>
+  </div>
+  <button id="toggleLongSidebar">≫</button>
+</aside>
+<script src="../js/sidebar.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const toggleShortSidebar = document.getElementById('toggleShortSidebar');
+  const toggleLongSidebar = document.getElementById('toggleLongSidebar');
+  const shortSidebar = document.getElementById('shortSidebar');
+  const longSidebar = document.getElementById('longSidebar');
+  const content = document.querySelector('.main-content');
+
+  function updateContentMargin() {
+    const sidebarWidth = shortSidebar.offsetWidth;
+    content.style.marginLeft = `${sidebarWidth}px`;
+  }
+
+  toggleShortSidebar.addEventListener('click', function () {
+    longSidebar.style.display = 'none';
+    shortSidebar.style.display = 'flex';
+    updateContentMargin();
+  });
+
+  toggleLongSidebar.addEventListener('click', function () {
+    shortSidebar.style.display = 'none';
+    longSidebar.style.display = 'flex';
+    content.style.marginLeft = '200px';
+  });
+});
+
+</script>
