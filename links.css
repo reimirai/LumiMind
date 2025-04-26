@@ -1,0 +1,110 @@
+/* Right Panel */
+.right-panel {
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    display: flex;
+    min-width: 240px;
+    padding: 30px 20px;
+    flex-direction: column;
+    overflow: hidden;
+    font-weight: 400;
+    justify-content: start;
+    width: 270px;
+}
+
+.panel-section {
+    display: flex;
+    max-width: 100%;
+    width: 230px;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    justify-content: start;
+}
+
+.panel-section:not(:first-child) {
+    margin-top: 40px;
+}
+
+.panel-header {
+    display: flex;
+    width: 100%;
+    max-width: 230px;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 1);
+    letter-spacing: 0.65px;
+}
+
+.panel-title-container {
+    align-self: start;
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+}
+
+.panel-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 18px;
+    flex-shrink: 0;
+}
+
+.panel-title {
+    flex-basis: auto;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.panel-divider {
+    border-color: rgba(234, 234, 234, 1);
+    border-style: solid;
+    border-width: 1px;
+    background-color: #eaeaea;
+    margin-top: 9px;
+    flex-shrink: 0;
+    height: 1px;
+}
+
+.panel-links {
+    margin-top: 10px;
+    overflow: hidden;
+    color: #1682fd;
+}
+
+.panel-link {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    text-decoration: none;
+    color: inherit;
+}
+
+.panel-link:not(:first-child) {
+    margin-top: 10px;
+}
+
+.bullet {
+    text-align: center;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 0.72px;
+    width: 17px;
+}
+
+.link-text {
+    font-size: 11px;
+    line-height: 17px;
+    letter-spacing: 0.33px;
+    width: 213px;
+}
+
+.panel-link:nth-child(2) .link-text,
+.panel-section:nth-child(2) .panel-link .link-text {
+    line-height: 2;
+}

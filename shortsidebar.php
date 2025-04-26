@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="sidebar.css" />
-<aside class="main-sidebar1" id="shortSidebar" style="display: none;">
+<aside class="main-sidebar1" id="shortSidebar">
     <h2 class="main-logo1">
         
         <img src="icon/Logo.png" id="Logo" alt="Logo">
@@ -36,8 +36,7 @@
 
 
 
-<main class="content">
-    </main>
+
 
 
 <script>

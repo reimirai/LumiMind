@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="sidebar1.css" />
 
-<nav class="sidebar">
+<nav class="sidebar1">
     <h1 class="sidebar-title">Community & Peer Support</h1>
 
     <section class="menu-section">
@@ -8,20 +8,24 @@
 
         <ul class="menu-list">
             <li class="menu-item menu-item-selected">
-                <span class="selection-indicator"></span>
-                <div class="menu-item-content">
-                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c4b029bc79cbf85a43a6726ffb4e99572bf5aa06?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
-                        alt="Posts icon" class="menu-icon" />
-                    <span class="menu-text">Posts</span>
-                </div>
+                <a href="index.php?page=forum" class="flex" style="gap: 40px 45px;">
+                    <span class="selection-indicator"></span>
+                    <div class="menu-item-content">
+                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c4b029bc79cbf85a43a6726ffb4e99572bf5aa06?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
+                            alt="Posts icon" class="menu-icon" />
+                        <span class="menu-text">Posts</span>
+                    </div>
+                </a>
             </li>
 
             <li class="menu-item">
-                <div class="menu-item-content">
-                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1ff8c5fd1868e34f48fdfa77d11ef2ea8419551c?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
-                        alt="Tags icon" class="menu-icon" />
-                    <span class="menu-text">Tags</span>
-                </div>
+                <a href="index.php?page=forum">
+                    <div class="menu-item-content">
+                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1ff8c5fd1868e34f48fdfa77d11ef2ea8419551c?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
+                            alt="Tags icon" class="menu-icon" />
+                        <span class="menu-text">Tags</span>
+                    </div>
+                </a>
             </li>
 
             <li class="menu-item">

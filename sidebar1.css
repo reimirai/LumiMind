@@ -15,7 +15,7 @@
 }
 
 /* Sidebar container */
-.sidebar {
+.sidebar1 {
     background-color: #fff;
     max-width: 264px;
     padding-right: 8px;
@@ -106,7 +106,6 @@
     white-space: nowrap;
     display: flex;
     padding-right: 51px;
-    gap: 40px 45px;
 }
 
 .selection-indicator {
@@ -261,4 +260,5 @@
         sans-serif;
     font-size: 9px;
     line-height: 2;
+    white-space: nowrap;
 }
