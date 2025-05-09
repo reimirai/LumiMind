@@ -17,7 +17,7 @@
          <?php
     include 'fetchdata.php';
         
-$sql1 = "SELECT id, points FROM User";
+$sql1 = "SELECT id, points FROM Users";
 $result1 = $conn->query($sql1);
 
 if ($result1->num_rows > 0) {

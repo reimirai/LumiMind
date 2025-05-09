@@ -15,20 +15,23 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "LumiMind";
-$conn = new mysqli($servername, $username, $password, $dbname);
 
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     echo json_encode(['success' => false, 'message' => 'Database connection failed: ' . $conn->connect_error]);
     exit;
 }
 
-// ❗ Check for unfinished task first
-$check = $conn->prepare("SELECT * FROM user_task WHERE user_id = ? AND task_id = ? AND status != 'completed'");
+// Check for an unfinished task first
+$check = $conn->prepare("SELECT * FROM user_task WHERE UID = ? AND TID = ? AND status != 'completed'");
+if (!$check) {
+    echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);
+    exit;
+}
 $check->bind_param("si", $userId, $taskId);
 $check->execute();
-$checkResult = $check->get_result();
-
-if ($checkResult->num_rows > 0) {
+$check->store_result();
+if ($check->num_rows > 0) {
     echo json_encode(['success' => false, 'message' => 'You must complete the previous task before taking it again.']);
     $check->close();
     $conn->close();
@@ -36,12 +39,17 @@ if ($checkResult->num_rows > 0) {
 }
 $check->close();
 
-$stmt = $conn->prepare("SELECT step_number FROM task_step WHERE fk_task = ?");
-$stmt->bind_param("i", $taskId);
+// Retrieve total_steps for the task using bind_result()/fetch()
+$stmt = $conn->prepare("SELECT total_steps FROM task_step WHERE TID = ?");
+if (!$stmt) {
+    echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);
+    exit;
+}
+$stmt->bind_param("s", $taskId);
 $stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$totalSteps = $row['step_number'] ?? 0;
+$stmt->store_result();
+$stmt->bind_result($totalSteps);
+$stmt->fetch();
 $stmt->close();
 
 if ($totalSteps == 0) {
@@ -50,8 +58,12 @@ if ($totalSteps == 0) {
     exit;
 }
 
-$stmt = $conn->prepare("INSERT INTO user_task (user_id, task_id, current_step, total_steps, status, task_lastdate) VALUES (?, ?, 0, ?, 'in_progress', NOW() + INTERVAL 30 Day)");
-$stmt->bind_param("sii", $userId, $taskId, $totalSteps);
+$stmt = $conn->prepare("INSERT INTO user_task (UID, TID, current_step, total_steps, status, task_lastdate) VALUES (?, ?, 0, ?, 'in_progress', DATE_ADD(NOW(), INTERVAL 30 DAY))");
+if (!$stmt) {
+    echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);
+    exit;
+}
+$stmt->bind_param("ssi", $userId, $taskId, $totalSteps);
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true]);

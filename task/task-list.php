@@ -1,5 +1,12 @@
 <?php
-// Database connection parameters
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.html');
+    exit;
+}
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -13,8 +20,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql1 = "SELECT id, points FROM User";
-$result1 = $conn->query($sql1);
+
+$sql1 = "SELECT id, points FROM Users WHERE id = ?";
+$stmt1 = $conn->prepare($sql1);
+$stmt1->bind_param("s", $_SESSION['user_id']);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
 
 if ($result1->num_rows > 0) {
     $row = $result1->fetch_assoc();
@@ -31,14 +42,14 @@ $sql = "
         ut.total_steps,
         t.id AS task_id,
         t.task_title,
-        t.task_point,
+        t.points,
         GROUP_CONCAT(tsd.description SEPARATOR '\n') AS descriptions
     FROM user_task ut
-    JOIN task t ON ut.task_id = t.id
-    JOIN task_step ts ON t.id = ts.fk_task
-    JOIN task_step_description tsd ON ts.id = tsd.task_step_id
-    WHERE ut.user_id = ?
-    GROUP BY t.id, ut.current_step, ut.total_steps, t.task_title, t.task_point
+    JOIN task t ON ut.TID = t.id
+    JOIN task_step ts ON t.id = ts.TID
+    JOIN task_step_description tsd ON ts.TSID = tsd.TSID
+    WHERE ut.UID = ?
+    GROUP BY t.id, ut.current_step, ut.total_steps, t.task_title, t.points
 ";
 
 $stmt = $conn->prepare($sql);
@@ -53,7 +64,7 @@ if ($result && $result->num_rows > 0) {
         $taskId = $row['task_id'];
         $tasks[$taskId] = [
             'task_title'   => $row['task_title'],
-            'task_point'   => $row['task_point'],
+            'task_point'   => $row['points'],
             'current_step' => $row['current_step'],
             'total_steps'  => $row['total_steps'],
             'descriptions' => explode("\n", $row['descriptions'])

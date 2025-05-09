@@ -1,7 +1,12 @@
-<?php require_once('../sidebar/sidebar.html'); ?>
-
 <?php
-// Database connection
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.html');
+    exit;
+}
+
+require_once('../sidebar/sidebar.html'); 
 $conn = new mysqli("localhost", "root", "", "LumiMind");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -10,7 +15,6 @@ if ($conn->connect_error) {
 $currentDate = date("Y-m-d");
 $startDate = date("Y-m-d", strtotime("-30 days"));
 
-// Fetch mood entries for the last 30 days
 $stmt = $conn->prepare("SELECT mood, entry_date FROM mood_entries WHERE entry_date >= ? AND entry_date <= ? ORDER BY entry_date DESC");
 $stmt->bind_param("ss", $startDate, $currentDate);
 $stmt->execute();
@@ -18,7 +22,6 @@ $result = $stmt->get_result();
 $moodHistory = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
-// Prepare data for monthly mood chart (placeholder)
 $monthlyMoodCounts = [];
 $monthlyStmt = $conn->prepare("SELECT mood, DATE_FORMAT(entry_date, '%Y-%m') AS month FROM mood_entries ORDER BY month ASC");
 $monthlyStmt->execute();

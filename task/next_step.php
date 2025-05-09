@@ -12,8 +12,8 @@ $userId = $data['user_id'];
 $taskId = $data['task_id'];
 include 'db.php';
 
-$stmt = $conn->prepare("SELECT current_step, total_steps FROM user_task WHERE user_id = ? AND task_id = ?");
-$stmt->bind_param("si", $userId, $taskId);
+$stmt = $conn->prepare("SELECT current_step, total_steps FROM user_task WHERE UID = ? AND TID = ?");
+$stmt->bind_param("ss", $userId, $taskId);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -36,11 +36,10 @@ if ($currentStep >= $totalSteps) {
     exit;
 }
 
-// Increment current_step by 1
 $newStep = $currentStep + 1;
 
-$stmt = $conn->prepare("UPDATE user_task SET current_step = ? WHERE user_id = ? AND task_id = ?");
-$stmt->bind_param("isi", $newStep, $userId, $taskId);
+$stmt = $conn->prepare("UPDATE user_task SET current_step = ? WHERE UID = ? AND TID = ?");
+$stmt->bind_param("iss", $newStep, $userId, $taskId);
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Task progress updated successfully']);

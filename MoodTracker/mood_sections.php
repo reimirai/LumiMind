@@ -1,4 +1,11 @@
-<?php require_once('../sidebar/sidebar.html'); 
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.html');
+    exit;
+}
+require_once('../sidebar/sidebar.html'); 
 // Database connection
 $conn = new mysqli("localhost", "root", "", "LumiMind");
 if ($conn->connect_error) {

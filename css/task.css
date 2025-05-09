@@ -176,3 +176,19 @@ ul li a {
         margin-left: 200px + 240px; /* Adjust based on both sidebar widths */
     }
    
+    .modal-content {
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  border-bottom: none;
+  background: #f3f0ff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #5a38c0;
+}
