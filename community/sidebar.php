@@ -8,7 +8,7 @@
 
         <ul class="menu-list">
             <li class="menu-item menu-item-selected">
-                <a href="index.php?page=forum" class="flex" style="gap: 40px 45px;">
+                <a href="community.php?page=forum" class="flex" style="gap: 40px 45px;">
                     <span class="selection-indicator"></span>
                     <div class="menu-item-content">
                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c4b029bc79cbf85a43a6726ffb4e99572bf5aa06?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
@@ -19,7 +19,7 @@
             </li>
 
             <li class="menu-item">
-                <a href="index.php?page=forum">
+                <a href="community.php?page=forum">
                     <div class="menu-item-content">
                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1ff8c5fd1868e34f48fdfa77d11ef2ea8419551c?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                             alt="Tags icon" class="menu-icon" />

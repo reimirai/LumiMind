@@ -1,13 +1,15 @@
-<link rel="stylesheet" href="styles.css" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet" />
-
 <?php
 // Include the database connection
 include 'db.php';
 
 try {
     // Fetch all posts
-    $stmt = $conn->prepare("SELECT id, title, content, created_at FROM posts ORDER BY created_at DESC");
+    $stmt = $conn->prepare("
+    SELECT p.id, p.title, p.content, p.created_at, u.Name, u.avatar
+    FROM posts p
+    JOIN users u ON p.user_id = u.ID
+    ORDER BY p.created_at DESC
+    ");
     $stmt->execute();
     $result = $stmt->get_result();
     $posts = $result->fetch_all(MYSQLI_ASSOC);
@@ -15,7 +17,27 @@ try {
 } catch (Exception $e) {
     die("Error fetching posts: " . $e->getMessage());
 }
+
+function timeAgo($datetime) {
+    $time = strtotime($datetime);
+    $diff = time() - $time;
+
+    if ($diff < 60) {
+        return $diff . " seconds ago";
+    } elseif ($diff < 3600) {
+        return floor($diff / 60) . " minutes ago";
+    } elseif ($diff < 86400) {
+        return floor($diff / 3600) . " hours ago";
+    } else {
+        return floor($diff / 86400) . " days ago";
+    }
+}
 ?>
+
+<link rel="stylesheet" href="styles.css" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
 <section class="forumcontent">
     <header class="content-header">
@@ -41,7 +63,7 @@ try {
                 <span class="tab-text">Closed</span>
             </button>
         </nav>
-        <button class="create-post-button" onclick="window.location.href='index.php?page=createpost'">
+        <button class="create-post-button" onclick="window.location.href='community.php?page=createpost'">
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a4ae20c7899fd28dee46e7b3753efbb2d14e17b?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                 class="create-post-icon" alt="Plus icon" />
             <span class="create-post-text">Create a post</span>
@@ -56,24 +78,109 @@ try {
                         <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc223bf7618cb0b0d7282822ebc179be812a602c?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                             class="user-avatar" alt="User avatar" />
                         <div class="user-details">
-                            <h3 class="username">Golanginya</h3>
-                            <time class="post-time">5 min ago</time>
+                            <h3 class="username"><?php echo htmlspecialchars($post['Name']); ?></h3>
+                            <time class="post-time"><?php echo timeAgo($post['created_at']); ?></time>
                         </div>
                     </div>
-                    <button class="post-menu-button">
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f6252cccc4865cdb7a02f91ad0b2062da1f6fede?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
-                            class="post-menu-icon" alt="Menu icon" />
-                    </button>
+                    <div class="relative">
+                        <button class="post-menu-button" onclick="toggleDropdown(this)">
+                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f6252cccc4865cdb7a02f91ad0b2062da1f6fede?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
+                                class="post-menu-icon" alt="Menu icon" />
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div
+                            class="hidden absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg z-10">
+                            <a href="community.php?page=editpost&id=<?php echo $post['id']; ?>&ref=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                            <form action="deletepost.php" method="POST" class="block">
+                                <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+                                <button type="submit"
+                                    class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</button>
+                            </form>
+                        </div>
+                    </div>
                 </header>
                 <div class="post-content">
                     <h2 class="post-title">
-                        <a href="index.php?page=post&id=1" class="text-blue-600 hover:underline">
+                        <a href="community.php?page=post&id=<?php echo $post['id']; ?>"
+                            class="text-blue-600 hover:underline">
                             <?php echo htmlspecialchars($post['title']); ?>
                         </a>
                     </h2>
                     <p class="post-description">
                         <?php echo nl2br(htmlspecialchars($post['content'])); ?>
                     </p>
+
+                    <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+                        <?php
+                        try {
+                            $stmt = $conn->prepare("SELECT image_path FROM post_images WHERE post_id = ? ORDER BY id ASC");
+                            $stmt->bind_param("i", $post['id']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $images = $result->fetch_all(MYSQLI_ASSOC); // Fetch all images as an associative array
+                            $stmt->close();
+
+                            if (count($images) > 0): // Check if there are any images
+                                ?>
+                                <!-- Carousel wrapper -->
+                                <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                                    <?php
+                                    $isFirstImage = true;
+                                    foreach ($images as $image) {
+                                        $imagePath = htmlspecialchars($image['image_path']);
+                                        echo '<div class="opacity-0 invisible duration-700 ease-in-out transition-all" ' . ($isFirstImage ? 'data-carousel-item="active">' : 'data-carousel-item>');
+                                        echo '<img src="' . $imagePath . '" alt="Post Image" class="w-full h-full object-scale-down">';
+                                        echo '</div>';
+                                        $isFirstImage = false;
+                                    }
+                                    ?>
+                                </div>
+                                <?php if (count($images) > 1): // Show indicators and controls only if there is more than one image ?>
+                                    <!-- Slider indicators -->
+                                    <div
+                                        class="absolute z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse bottom-5 left-1/2 bg-black/60 rounded-full px-2 py-2">
+                                        <?php
+                                        for ($i = 0; $i < count($images); $i++) {
+                                            echo '<button type="button" class="w-2 h-2 rounded-full" aria-current="' . ($i === 0 ? 'true' : 'false') . '" aria-label="Slide ' . ($i + 1) . '" data-carousel-slide-to="' . $i . '"></button>';
+                                        }
+                                        ?>
+                                    </div>
+                                    <!-- Slider controls -->
+                                    <button type="button"
+                                        class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                        data-carousel-prev>
+                                        <span
+                                            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-black/60 group-hover:bg-black/80">
+                                            <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="1.5" d="M5 1 1 5l4 4" />
+                                            </svg>
+                                            <span class="sr-only">Previous</span>
+                                        </span>
+                                    </button>
+                                    <button type="button"
+                                        class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                        data-carousel-next>
+                                        <span
+                                            class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-black/60 group-hover:bg-black/80">
+                                            <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="1.5" d="m1 9 4-4-4-4" />
+                                            </svg>
+                                            <span class="sr-only">Next</span>
+                                        </span>
+                                    </button>
+                                <?php endif; ?>
+                                <?php
+                            endif; // End of image check
+                        } catch (Exception $e) {
+                            echo "Error fetching images: " . $e->getMessage();
+                        }
+                        ?>
+                    </div>
                 </div>
                 <footer class="post-footer">
                     <div class="post-tags">
@@ -102,7 +209,7 @@ try {
             </article>
         <?php endforeach; ?>
 
-        <article class="post-teaser">
+        <!-- <article class="post-teaser">
             <header class="post-header">
                 <div class="user-info">
                     <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cde03525093ccfc2c4647574ce03f227442b0cfc?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
@@ -252,6 +359,82 @@ try {
                     </div>
                 </div>
             </footer>
-        </article>
+        </article> -->
     </section>
 </section>
+
+<script>
+    function toggleDropdown(button) {
+        const dropdown = button.nextElementSibling;
+        dropdown.classList.toggle('hidden');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        const dropdowns = document.querySelectorAll('.relative .hidden');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.parentElement.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const carousels = document.querySelectorAll('[data-carousel="static"]');
+
+        carousels.forEach(carousel => {
+            const items = carousel.querySelectorAll('[data-carousel-item]');
+            const indicators = carousel.querySelectorAll('[data-carousel-slide-to]');
+            const prevButton = carousel.querySelector('[data-carousel-prev]');
+            const nextButton = carousel.querySelector('[data-carousel-next]');
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                items.forEach((item, i) => {
+                    if (i === index) {
+                        item.classList.remove('opacity-0', 'invisible');
+                        item.classList.add('opacity-100', 'visible');
+                    } else {
+                        item.classList.add('opacity-0', 'invisible');
+                        item.classList.remove('opacity-100', 'visible');
+                    }
+                });
+
+                indicators.forEach((btn, i) => {
+                    btn.setAttribute('aria-current', i === index ? 'true' : 'false');
+                });
+
+                if (prevButton) {
+                    prevButton.style.display = index === 0 ? 'none' : 'flex';
+                }
+
+                if (nextButton) {
+                    nextButton.style.display = index === items.length - 1 ? 'none' : 'flex';
+                }
+
+                currentIndex = index;
+            }
+
+            indicators.forEach((btn, index) => {
+                btn.addEventListener('click', () => showSlide(index));
+            });
+
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    const newIndex = (currentIndex - 1 + items.length) % items.length;
+                    showSlide(newIndex);
+                });
+            }
+
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    const newIndex = (currentIndex + 1) % items.length;
+                    showSlide(newIndex);
+                });
+            }
+
+            // Initialize the carousel
+            showSlide(currentIndex);
+        });
+    });
+</script>

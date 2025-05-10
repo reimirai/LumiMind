@@ -3,8 +3,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet" />
 <!-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> -->
 
-
-
 <section class="post-creation-section">
     <form action="submitpost.php" method="POST" enctype="multipart/form-data" class="post-form">
         <input type="text" name="title" required class="post-title-input" placeholder="Type your post title" />
@@ -12,7 +10,7 @@
         <textarea name="content" required class="post-content-input" placeholder="Type your post contents"></textarea>
 
         <!-- File Names Display -->
-        <div class="file-preview hidden" id="filePreview">
+        <div class="file-preview" id="filePreview">
             <ul id="fileList" class="file-list"></ul>
         </div>
 
@@ -33,8 +31,6 @@
                 <span class="button-text">Add Image</span>
             </label>
             <input type="file" id="images" name="images[]" accept="image/*" class="hidden" multiple />
-
-
 
             <button type="submit" class="post-button">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -130,9 +126,9 @@
 
         // Show or hide the file preview section
         if (dataTransfer.files.length > 0) {
-            filePreview.classList.remove('hidden');
+            filePreview.style.display = 'block';
         } else {
-            filePreview.classList.add('hidden');
+            filePreview.style.display = 'none';
         }
     });
 
@@ -179,9 +175,9 @@
 
         // Show or hide the file preview section
         if (dataTransfer.files.length > 0) {
-            filePreview.classList.remove('hidden');
+            filePreview.style.display = 'block';
         } else {
-            filePreview.classList.add('hidden');
+            filePreview.style.display = 'none';
         }
     }
 

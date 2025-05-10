@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Include the database connection
 include 'db.php';
 
@@ -8,6 +10,7 @@ try {
     // Get form data
     $title = $_POST['title'];
     $content = $_POST['content'];
+    $userId = $_SESSION['user_id'];
 
     // Validate required fields
     if (empty($title) || empty($content)) {
@@ -15,8 +18,8 @@ try {
     }
 
     // Insert the post into the `posts` table
-    $stmt = $conn->prepare("INSERT INTO posts (title, content) VALUES (?, ?)");
-    $stmt->bind_param("ss", $title, $content);
+    $stmt = $conn->prepare("INSERT INTO posts (title, content, user_id) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $title, $content, $userId);
     if (!$stmt->execute()) {
         throw new Exception('Error inserting the post into the database.');
     }
@@ -29,7 +32,8 @@ try {
 
         foreach ($_FILES['images']['tmp_name'] as $key => $tmpName) {
             if ($_FILES['images']['error'][$key] === UPLOAD_ERR_OK) {
-                $imageName = uniqid() . '_' . basename($_FILES['images']['name'][$key]);
+                $originalName = basename($_FILES['images']['name'][$key]);
+                $imageName = time() . '_' . $originalName;
                 $imagePath = $uploadDir . $imageName;
 
                 // Move the uploaded file to the desired directory

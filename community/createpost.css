@@ -105,12 +105,10 @@
 
 .add-image-button {
     background-color: #1682fd;
-    opacity: 0.8;
 }
 
 .post-button {
     background-color: #f48023;
-    opacity: 0.5;
 }
 
 .button-text {
@@ -118,6 +116,61 @@
     color: #fff;
     font-weight: 900;
     margin-left: 12px;
+}
+
+/* File preview container */
+.file-preview {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+
+/* File list */
+.file-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* File item */
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* File name */
+.file-item span {
+    font-size: 14px;
+    color: #333;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Remove button */
+.remove-file-button {
+    font-size: 14px;
+    font-weight: bold;
+    color: #e53e3e;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.remove-file-button:hover {
+    background-color: #ffe5e5;
+    color: #c53030;
 }
 
 /* Sidebar */
