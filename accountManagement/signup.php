@@ -25,7 +25,6 @@ if (
     $dob = trim($_POST['dob']);
     $plainPassword = trim($_POST['password']);
 
-    // Check if email already exists
     $stmt = $pdo->prepare("SELECT * FROM users WHERE Email = :email");
     $stmt->bindParam(':email', $email);
     $stmt->execute();
@@ -40,9 +39,9 @@ if (
     if ($row = $idStmt->fetch(PDO::FETCH_ASSOC)) {
         $lastId = $row['ID'];
         $num = intval(substr($lastId, 1)) + 1;
-        $newId = 'U' . str_pad($num, 4, '0', STR_PAD_LEFT);
+        $newId = 'A' . str_pad($num, 4, '0', STR_PAD_LEFT);
     } else {
-        $newId = 'U0001';
+        $newId = 'A0001';
     }
 
     // Insert new user

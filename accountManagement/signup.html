@@ -1,73 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LumiMind</title>
-    <link rel="stylesheet" href="../css/account.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LumiMind</title>
+  <link rel="stylesheet" href="../css/account.css">
 </head>
-
 <body>
-    <div class="container">
-        <div class="form-container">
-            <div class="logo">
-                <img src="../icon/logo.png" alt="Logo">
-                <span>LumiMind</span>
-            </div>
-            <h1>Sign up</h1>
-            <p>Welcome to 'LumiMind'</p>
-            <form id="signupForm">
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="email" id="email" name="email" placeholder="Email" required>
-                <input type="date" id="dob" name="dob" required>
-                <input type="password" id="password" name="password" placeholder="Password" required>
-                <div class="buttons">
-                    <button type="button" class="login-btn" onclick="window.location.href='login.html'">Login</button>
-                    <button type="submit" class="signup-btn">Sign up</button>
-                </div>
-                <p id="message" style="color: red; margin-top: 10px;"></p>
-            </form>
+  <div class="container">
+    <div class="form-container">
+      <div class="logo">
+        <img src="../icon/logo.png" alt="Logo">
+        <span>LumiMind</span>
+      </div>
+      <h1>Sign up</h1>
+      <p>Welcome to 'LumiMind'</p>
+      <form id="signupForm">
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="date" id="dob" name="dob" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div class="buttons">
+          <button type="button" class="login-btn" onclick="window.location.href='login.html'">Login</button>
+          <button type="submit" class="signup-btn">Sign up</button>
         </div>
-
-        <div class="image-container">
-            <img src="../icon/duck2.png" alt="Chick holding heart">
-            <p>Your story starts here.</p>
-        </div>
+        <p id="message" style="color: red; margin-top: 10px;"></p>
+      </form>
     </div>
 
-    <script>
-        document.getElementById("signupForm").addEventListener("submit", function (event) {
-            event.preventDefault();
+    <div class="image-container">
+      <img src="../icon/duck2.png" alt="Chick holding heart">
+      <p>Your story starts here.</p>
+    </div>
+  </div>
 
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const dob = document.getElementById("dob").value;
-            const password = document.getElementById("password").value;
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-            const data = `username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&dob=${encodeURIComponent(dob)}&password=${encodeURIComponent(password)}`;
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const dob = document.getElementById("dob").value;
+      const password = document.getElementById("password").value;
 
-            fetch("signup.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: data
-            })
-                .then(response => response.text())
-                .then(result => {
-                    if (result.trim() === "success") {
-                        window.location.href = "../MoodTracker/mood_sections.php";
-                    } else {
-                        document.getElementById("message").textContent = result;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById("message").textContent = "An error occurred. Please try again.";
-                    console.error(error);
-                });
-        });
-    </script>
+      const data = `username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&dob=${encodeURIComponent(dob)}&password=${encodeURIComponent(password)}`;
+
+      fetch("signup.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: data
+      })
+      .then(response => response.text())
+      .then(result => {
+        if (result.trim() === "success") {
+          window.location.href = "../MoodTracker/mood_sections.php";
+        } else {
+          document.getElementById("message").textContent = result;
+        }
+      })
+      .catch(error => {
+        document.getElementById("message").textContent = "An error occurred. Please try again.";
+        console.error(error);
+      });
+    });
+  </script>
 </body>
-
 </html>

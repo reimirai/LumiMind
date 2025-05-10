@@ -75,8 +75,7 @@ form input[type="date"] {
     gap: 10px;
 }
 
-.login-btn,
-.signup-btn {
+.login-btn, .signup-btn {
     flex: 1;
     padding: 12px;
     border: none;

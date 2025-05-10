@@ -1,0 +1,142 @@
+/* mood_sections.css */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    max-width: 960px; /* Adjust as needed */
+    width: 95%;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.left-side {
+    flex: 1; /* Take up available space on the left */
+    min-width: 300px; /* Minimum width for the left side */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Tell Us Your Mood */
+.mood-input h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.mood-faces {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 10px;
+}
+
+.mood-face button {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 0.9em;
+    color: #555;
+    transition: background-color 0.3s ease;
+}
+
+.mood-face button:hover {
+    background-color: #f9f9f9;
+}
+
+.mood-face img {
+    width: 100px;
+    height: 100px;
+}
+
+.mood-display img {
+    width: 150px;
+    height: 150px;
+}
+
+
+/* Bottom Left Container */
+.bottom-left {
+    display: flex;
+    gap: 20px;
+    width: 100%; /* Take full width of the left side */
+}
+
+.motivation {
+    flex: 1; /* Take equal width */
+}
+
+.mood-history {
+    flex: 1; /* Take equal width */
+}
+
+/* Sticky Note */
+.sticky-note {
+    width: 300px; /* Adjust the width of the sticky note */
+}
+
+.sticky-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.sticky-header h3 {
+    margin: 0;
+    color: #333;
+}
+
+.sticky-header .add-note {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    color: #555;
+}
+
+.note-items label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .left-side,
+    .sticky-note {
+        width: 100%;
+    }
+    .bottom-left {
+        flex-direction: column; /* Stack motivation and history on smaller screens */
+    }
+}
