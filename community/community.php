@@ -11,9 +11,8 @@
 
 <body style="background-color: #f5f5f5;">
   <div class="flex">
-    <?php include '../sidebar/shortsidebar.php'; ?>
-    <?php include '../sidebar/longsidebar.php'; ?>
-    <?php include 'sidebar.php'; ?>
+    <?php include '../sidebar/sidebar.html'; ?>
+    <?php include 'sidebar1.php'; ?>
     <main class="main-layout">
       <?php
       $page = $_GET['page'] ?? 'forum';
