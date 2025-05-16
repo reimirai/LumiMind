@@ -1,0 +1,15 @@
+.main-layout {
+    display: flex;
+    padding: 40px 20px 15px;
+    align-items: start;
+    gap: 13px;
+    overflow: hidden;
+    font-family:
+        Roboto,
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

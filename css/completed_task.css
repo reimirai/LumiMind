@@ -1,0 +1,36 @@
+.notes-list {
+    margin-bottom: 30px;
+}
+
+.note-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: #fff9e6;
+}
+
+.note-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.complete-btn, .uncomplete-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.complete-btn:hover {
+    color: #28a745;
+}
+
+.uncomplete-btn:hover {
+    color: #dc3545;
+}
