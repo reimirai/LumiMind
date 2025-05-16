@@ -1,5 +1,5 @@
 /* Main Layout */
-.main-layout {
+/* .main-layout {
     display: flex;
     padding: 40px 20px 15px;
     align-items: start;
@@ -13,7 +13,7 @@
         sans-serif;
     justify-content: space-between;
     flex-wrap: wrap;
-}
+} */
 
 /* Post and Comments Section */
 .post-comments {
@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: start;
     width: 755px;
+    flex-grow: 1;
 }
 
 @media (max-width: 991px) {
@@ -36,7 +37,7 @@
     border-radius: 5px;
     box-shadow: 2px 1px 5px 0px rgba(0, 0, 0, 0.15);
     background-color: #fff;
-    width: 725px;
+    width: 100%;
     max-width: 100%;
     padding: 50px 40px;
     overflow: hidden;
@@ -426,7 +427,7 @@
     background-color: #fff;
     display: flex;
     margin-top: 20px;
-    width: 725px;
+    width: 100%;
     max-width: 100%;
     flex-direction: column;
     overflow: hidden;
@@ -434,7 +435,6 @@
 
 .comment-content {
     width: 100%;
-    max-width: 720px;
     padding: 20px 40px;
     font-weight: 300;
 }

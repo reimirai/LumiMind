@@ -11,15 +11,27 @@ try {
     $title = $_POST['title'];
     $content = $_POST['content'];
     $userId = $_SESSION['user_id'];
+    $groupId = isset($_POST['group_id']) ? intval($_POST['group_id']) : 0;
 
     // Validate required fields
     if (empty($title) || empty($content)) {
         throw new Exception('Title and content are required.');
     }
 
+    // Double-check user is a member of the selected group
+    $stmt = $conn->prepare("SELECT 1 FROM peer_support_group_members WHERE group_id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $groupId, $userId);
+    $stmt->execute();
+    $is_member = $stmt->get_result()->num_rows > 0;
+    $stmt->close();
+
+    if (!$is_member) {
+        throw new Exception('You must be a member of the group to post.');
+    }
+
     // Insert the post into the `posts` table
-    $stmt = $conn->prepare("INSERT INTO posts (title, content, user_id) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssi", $title, $content, $userId);
+    $stmt = $conn->prepare("INSERT INTO posts (group_id, user_id, title, content) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iiss", $groupId, $userId, $title, $content);
     if (!$stmt->execute()) {
         throw new Exception('Error inserting the post into the database.');
     }

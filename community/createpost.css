@@ -1,5 +1,5 @@
 /* Main container */
-.page-container {
+/* .page-container {
     max-width: none;
     margin-left: auto;
     margin-right: auto;
@@ -7,14 +7,14 @@
     justify-content: center;
     padding: 40px 20px;
     background-color: #f9f9f9;
-}
+} */
 
 /* Content wrapper */
-.content-wrapper {
+/* .content-wrapper {
     display: flex;
     width: 1078px;
     justify-content: space-between;
-}
+} */
 
 /* Post creation section */
 .post-creation-section {
@@ -23,6 +23,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    flex-grow: 1;
 }
 
 .post-form {

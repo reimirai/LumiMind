@@ -22,6 +22,7 @@
     padding-top: 30px;
     padding-bottom: 424px;
     overflow: hidden;
+    width: 100%;
 }
 
 /* Sidebar title */
@@ -135,6 +136,7 @@
 .menu-text {
     flex-grow: 1;
     flex-shrink: 1;
+    white-space: nowrap;
 }
 
 /* Non-selected menu items */
@@ -155,7 +157,7 @@
 
 /* Tag list */
 .tag-list {
-    align-self: center;
+    align-self: start;
     display: flex;
     margin-top: 10px;
     flex-direction: column;

@@ -1,3 +1,47 @@
+<?php
+include 'db.php';
+
+$user_id = $_SESSION['user_id'] ?? null;
+
+// Fetch groups the user has joined
+$groups = [];
+if ($user_id) {
+    $stmt = $conn->prepare("SELECT g.id, g.name FROM peer_support_groups g
+        JOIN peer_support_group_members m ON g.id = m.group_id
+        WHERE m.user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $groups = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+}
+
+// Handle post submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['group_id']) && !empty($_POST['title']) && !empty($_POST['content'])) {
+    $group_id = intval($_POST['group_id']);
+    $title = trim($_POST['title']);
+    $content = trim($_POST['content']);
+
+    // Double-check user is a member of the selected group
+    $stmt = $conn->prepare("SELECT 1 FROM peer_support_group_members WHERE group_id = ? AND user_id = ?");
+    $stmt->bind_param("ii", $group_id, $user_id);
+    $stmt->execute();
+    $is_member = $stmt->get_result()->num_rows > 0;
+    $stmt->close();
+
+    if ($is_member) {
+        $stmt = $conn->prepare("INSERT INTO posts (group_id, user_id, title, content) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("iiss", $group_id, $user_id, $title, $content);
+        $stmt->execute();
+        $stmt->close();
+        header("Location: group.php?id=$group_id");
+        exit;
+    } else {
+        $error = "You must be a member of the group to post.";
+    }
+}
+?>
+
 <link rel="stylesheet" href="createpost.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet" />
@@ -5,8 +49,14 @@
 
 <section class="post-creation-section">
     <form action="submitpost.php" method="POST" enctype="multipart/form-data" class="post-form">
-        <input type="text" name="title" required class="post-title-input" placeholder="Type your post title" />
+        <select name="group_id" required class="w-full border rounded px-3 py-2">
+            <option value="">-- Select a group --</option>
+            <?php foreach ($groups as $group): ?>
+                <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['name']); ?></option>
+            <?php endforeach; ?>
+        </select>
 
+        <input type="text" name="title" required class="post-title-input" placeholder="Type your post title" />
         <textarea name="content" required class="post-content-input" placeholder="Type your post contents"></textarea>
 
         <!-- File Names Display -->
@@ -192,8 +242,10 @@
         });
 
         // Add other form fields
+        const groupId = document.querySelector('select[name="group_id"]').value;
         const title = document.querySelector('input[name="title"]').value;
         const content = document.querySelector('textarea[name="content"]').value;
+        formData.append('group_id', groupId);
         formData.append('title', title);
         formData.append('content', content);
 

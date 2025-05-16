@@ -4,23 +4,29 @@ include 'db.php';
 
 $user_id = $_SESSION['user_id'];
 
-$stmt = $conn->prepare("
-    SELECT p.id, p.title, p.content, p.created_at, u.Name, u.avatar,
-        p.group_id,
-        g.name AS group_name,
-        (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id) AS likes,
-        (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ?) AS user_liked,
-        (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comment_count
-    FROM posts p
-    JOIN users u ON p.user_id = u.ID
-    JOIN peer_support_groups g ON p.group_id = g.id
-    ORDER BY p.created_at DESC
-");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$posts = $result->fetch_all(MYSQLI_ASSOC);
-$stmt->close();
+try {
+    // Fetch only posts created by this user, including group info
+    $stmt = $conn->prepare("
+        SELECT p.id, p.title, p.content, p.created_at, u.Name, u.avatar,
+            p.group_id,
+            g.name AS group_name,
+            (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id) AS likes,
+            (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ?) AS user_liked,
+            (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) AS comment_count
+        FROM posts p
+        JOIN users u ON p.user_id = u.ID
+        JOIN peer_support_groups g ON p.group_id = g.id
+        WHERE p.user_id = ?
+        ORDER BY p.created_at DESC
+    ");
+    $stmt->bind_param("ii", $user_id, $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $posts = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+} catch (Exception $e) {
+    die("Error fetching posts: " . $e->getMessage());
+}
 
 function timeAgo($datetime)
 {

@@ -86,9 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-<section class="flex flex-col items-center gap-5 w-[755px]">
+<section class="flex flex-col items-center gap-5 w-[755px] grow">
     <div class="w-[720px] p-[30px_40px] shadow-[2px_1px_5px_rgba(0,0,0,0.15)] rounded-[5px] bg-white">
         <h1 class="text-2xl font-bold mb-4">Edit Post</h1>
         <?php if (isset($error)): ?>

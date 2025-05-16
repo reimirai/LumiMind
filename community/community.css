@@ -11,5 +11,6 @@
         Helvetica,
         sans-serif;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-grow: 1;
 }
