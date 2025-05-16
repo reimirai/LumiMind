@@ -1,11 +1,11 @@
 /* Base styles */
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
-body {
+/* body {
   font-family:
     Roboto,
     -apple-system,
@@ -13,28 +13,28 @@ body {
     Helvetica,
     sans-serif;
   background-color: #f5f5f5;
-}
+} */
 
-button {
+/* button {
   background: none;
   border: none;
   cursor: pointer;
   font-family: inherit;
-}
+} */
 
-a {
+/* a {
   text-decoration: none;
-}
+} */
 
 /* Main layout */
-.main-layout {
+/* .main-layout {
   display: flex;
   padding: 40px 20px;
   align-items: flex-start;
   gap: 13px;
   overflow: hidden;
   justify-content: space-between;
-}
+} */
 
 /* Content area */
 .forumcontent {

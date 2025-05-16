@@ -9,9 +9,11 @@ $userId = $_SESSION['user_id'];
 $content = $_POST['content'];
 
 $stmt = $conn->prepare("INSERT INTO comments (post_id, user_id, content, parent_id, created_at) VALUES (?, ?, ?, ?, NOW())");
-$stmt->bind_param("iisi", $postId, $userId, $content, $parentId);
+$stmt->bind_param("issi", $postId, $userId, $content, $parentId);
 $stmt->execute();
 
-header("Location: community.php?page=post&id=$postId");
+// Redirect back to the previous page
+$previousPage = $_POST['ref'] ?? 'community.php?page=forum';
+header("Location: $previousPage");
 exit;
 ?>

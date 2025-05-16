@@ -9,7 +9,7 @@ if ($user_id) {
     $stmt = $conn->prepare("SELECT g.id, g.name FROM peer_support_groups g
         JOIN peer_support_group_members m ON g.id = m.group_id
         WHERE m.user_id = ?");
-    $stmt->bind_param("i", $user_id);
+    $stmt->bind_param("s", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $groups = $result->fetch_all(MYSQLI_ASSOC);
@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['group_id']) && !empt
 
     // Double-check user is a member of the selected group
     $stmt = $conn->prepare("SELECT 1 FROM peer_support_group_members WHERE group_id = ? AND user_id = ?");
-    $stmt->bind_param("ii", $group_id, $user_id);
+    $stmt->bind_param("is", $group_id, $user_id);
     $stmt->execute();
     $is_member = $stmt->get_result()->num_rows > 0;
     $stmt->close();
 
     if ($is_member) {
         $stmt = $conn->prepare("INSERT INTO posts (group_id, user_id, title, content) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("iiss", $group_id, $user_id, $title, $content);
+        $stmt->bind_param("isss", $group_id, $user_id, $title, $content);
         $stmt->execute();
         $stmt->close();
         header("Location: group.php?id=$group_id");

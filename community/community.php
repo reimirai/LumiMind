@@ -72,16 +72,5 @@ if (!isset($_SESSION['user_id'])) {
             longSidebar.style.display = 'flex';
             content.style.marginLeft = '200px';
         });
-
-        document.querySelectorAll('.menu-heading').forEach(function (menuHeading) {
-            menuHeading.addEventListener('click', function () {
-                const parent = this.closest('.nav-item');
-                const submenu = parent.querySelector('.submenu');
-                if (submenu) {
-                    const isVisible = submenu.style.display === 'block';
-                    submenu.style.display = isVisible ? 'none' : 'block';
-                }
-            });
-        });
     });
 </script>

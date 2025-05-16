@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="links.css" />
 
-
 <aside class="right-panel">
     <section class="panel-section">
         <header class="panel-header">

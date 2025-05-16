@@ -430,7 +430,6 @@
     width: 100%;
     max-width: 100%;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .comment-content {
@@ -670,7 +669,7 @@
 /* Replies Section */
 .replies-heading {
     color: #808080;
-    text-align: center;
+    text-align: left;
     font-size: 18px;
     font-weight: 500;
     line-height: 1;
@@ -688,7 +687,6 @@
     display: flex;
     width: 100%;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .nested-comment-content {

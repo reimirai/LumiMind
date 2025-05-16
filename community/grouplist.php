@@ -24,7 +24,7 @@ $groups = $result->fetch_all(MYSQLI_ASSOC);
                     <img src="<?php echo htmlspecialchars($group['icon_url']); ?>" alt="Group icon"
                         class="w-10 h-10 rounded-full object-cover" />
                     <div class="flex-1">
-                        <div class="font-semibold text-blue-800">StudyCircle</div>
+                        <div class="font-semibold text-blue-800"><?php echo htmlspecialchars($group['name']); ?></div>
                         <div class="text-xs text-gray-500">
                             <?php echo number_format($group['member_count']); ?> members
                         </div>

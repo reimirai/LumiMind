@@ -13,12 +13,13 @@ $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
 
 if ($post_id > 0) {
     $stmt = $conn->prepare("INSERT INTO post_likes (post_id, user_id) VALUES (?, ?)");
-    $stmt->bind_param("ii", $post_id, $user_id);
+    $stmt->bind_param("is", $post_id, $user_id);
     $stmt->execute();
     $stmt->close();
 }
 
-// Redirect back to the forum or previous page
-header("Location: community.php?page=forum");
+// Redirect back to the previous page
+$previousPage = $_POST['ref'] ?? 'community.php?page=forum';
+header("Location: $previousPage");
 exit();
 ?>

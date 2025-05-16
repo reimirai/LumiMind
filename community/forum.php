@@ -4,8 +4,22 @@ include 'db.php';
 
 $user_id = $_SESSION['user_id'];
 
+$sort = $_GET['sort'] ?? 'new';
+
+switch ($sort) {
+    case 'top':
+        $orderBy = 'likes DESC, p.created_at DESC';  // assuming you want to sort by likes count
+        break;
+    case 'popular':
+        $orderBy = 'comment_count DESC, p.created_at DESC'; // assuming you want to sort by comment count
+        break;
+    case 'new':
+    default:
+        $orderBy = 'p.created_at DESC';
+}
+
 $stmt = $conn->prepare("
-    SELECT p.id, p.title, p.content, p.created_at, u.Name, u.avatar,
+    SELECT p.id, p.user_id, p.title, p.content, p.created_at, u.Name, u.profile_image,
         p.group_id,
         g.name AS group_name,
         (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id) AS likes,
@@ -14,9 +28,9 @@ $stmt = $conn->prepare("
     FROM posts p
     JOIN users u ON p.user_id = u.ID
     JOIN peer_support_groups g ON p.group_id = g.id
-    ORDER BY p.created_at DESC
+    ORDER BY $orderBy
 ");
-$stmt->bind_param("i", $user_id);
+$stmt->bind_param("s", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $posts = $result->fetch_all(MYSQLI_ASSOC);
@@ -47,28 +61,23 @@ function timeAgo($datetime)
 <section class="forumcontent">
     <header class="content-header">
         <nav class="tabs">
-            <button class="tab-button tab-active">
+            <button class="tab-button tab-active" data-sort="new">
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cc9ade3af8a282c4d9bef2274070365d937c7369?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                     class="tab-icon" alt="New posts icon" />
                 <span class="tab-text">New</span>
             </button>
-            <button class="tab-button">
+            <button class="tab-button" data-sort="top">
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4d690259d3bbffb61b6a9430035e1706f5b3c61e?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                     class="tab-icon" alt="Top posts icon" />
                 <span class="tab-text">Top</span>
             </button>
-            <button class="tab-button">
+            <button class="tab-button" data-sort="popular">
                 <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/31d2ab442db79abe0144c0772b2e081f21f7eb85?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                     class="tab-icon" alt="Hot posts icon" />
-                <span class="tab-text">Hot</span>
-            </button>
-            <button class="tab-button">
-                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/b38c740fee683885df778e8875ddb72344640cc4?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
-                    class="tab-icon" alt="Closed posts icon" />
-                <span class="tab-text">Closed</span>
+                <span class="tab-text">Popular</span>
             </button>
         </nav>
-        <button class="create-post-button" onclick="window.location.href='community.php?page=createpost'">
+        <button class="create-post-button" onclick="window.location.href='community.php?page=createpost&from=forum'">
             <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a4ae20c7899fd28dee46e7b3753efbb2d14e17b?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
                 class="create-post-icon" alt="Plus icon" />
             <span class="create-post-text">Create a post</span>
@@ -80,8 +89,11 @@ function timeAgo($datetime)
             <article class="post-teaser">
                 <header class="post-header">
                     <div class="user-info">
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc223bf7618cb0b0d7282822ebc179be812a602c?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
-                            class="user-avatar" alt="User avatar" />
+                        <?php
+                        $base64Image = base64_encode($post['profile_image']);
+                        ?>
+                        <img src="data:image/jpeg;base64, <?php echo $base64Image; ?>" class="user-avatar"
+                            alt="User avatar" />
                         <div class="user-details">
                             <h3 class="username">
                                 <?php echo htmlspecialchars($post['Name']); ?>
@@ -101,20 +113,23 @@ function timeAgo($datetime)
                         </button>
                         <!-- Dropdown menu -->
                         <div
-                            class="hidden absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg z-10">
-                            <a href="community.php?page=editpost&id=<?php echo $post['id']; ?>&ref=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                            class="post-dropdown hidden absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow-lg z-10">
+                            <a href="community.php?page=editpost&id=<?php echo $post['id']; ?>&ref=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>&from=forum"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 <?php if ($post['user_id'] != $user_id)
+                                    echo 'opacity-50 cursor-not-allowed'; ?>" <?php if ($post['user_id'] != $user_id)
+                                          echo 'onclick="return false;"'; ?>>Edit</a>
                             <form action="deletepost.php" method="POST" class="block">
                                 <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
-                                <button type="submit"
-                                    class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</button>
+                                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 <?php if ($post['user_id'] != $user_id)
+                                    echo 'opacity-50 cursor-not-allowed'; ?>" <?php if ($post['user_id'] != $user_id)
+                                          echo 'onclick="return false;"'; ?>>Delete</button>
                             </form>
                         </div>
                     </div>
                 </header>
                 <div class="post-content">
                     <h2 class="post-title">
-                        <a href="community.php?page=post&id=<?php echo $post['id']; ?>"
+                        <a href="community.php?page=post&id=<?php echo $post['id']; ?>&from=forum"
                             class="text-blue-600 hover:underline">
                             <?php echo htmlspecialchars($post['title']); ?>
                         </a>
@@ -229,7 +244,7 @@ function timeAgo($datetime)
                                 </button>
                             </form>
                         <?php endif; ?>
-                        <a href="community.php?page=post&id=<?php echo $post['id']; ?>"
+                        <a href="community.php?page=post&id=<?php echo $post['id']; ?>&from=forum"
                             class="flex items-center justify-start rounded-[5px] bg-orange-500 text-white font-bold min-h-[30px] px-5 py-2 gap-3 overflow-hidden border-none cursor-pointer hover:bg-orange-600">
                             <img src="https://cdn.builder.io/api/v1/image/assets/6403d12017614190bab75befab4eae62/0801cfcd2fdc867d984f25f5dde934722695646f?placeholderIfAbsent=true"
                                 class="button-icon" alt="Comment" />
@@ -246,16 +261,40 @@ function timeAgo($datetime)
 </section>
 
 <script>
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const sortType = button.dataset.sort;
+            // Change URL param and reload page, e.g., community.php?page=forum&sort=new
+            const url = new URL(window.location);
+            url.searchParams.set('sort', sortType);
+            window.location.href = url.toString();
+        });
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentSort = urlParams.get('sort') || 'new';
+
+    document.querySelectorAll('.tab-button').forEach(button => {
+        if (button.dataset.sort === currentSort) {
+            button.classList.add('tab-active');
+        } else {
+            button.classList.remove('tab-active');
+        }
+    });
+
     function toggleDropdown(button) {
         const dropdown = button.nextElementSibling;
         dropdown.classList.toggle('hidden');
     }
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', function (event) {
-        const dropdowns = document.querySelectorAll('.relative .hidden');
+        // Get all visible dropdowns with class "post-dropdown"
+        const dropdowns = document.querySelectorAll('.post-dropdown:not(.hidden)');
+
         dropdowns.forEach(dropdown => {
-            if (!dropdown.parentElement.contains(event.target)) {
+            const parent = dropdown.parentElement;
+            // If click is NOT inside the parent (button + dropdown), hide dropdown
+            if (!parent.contains(event.target)) {
                 dropdown.classList.add('hidden');
             }
         });

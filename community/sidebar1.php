@@ -9,7 +9,7 @@ if ($user_id) {
         FROM peer_support_groups g
         JOIN peer_support_group_members m ON g.id = m.group_id
         WHERE m.user_id = ?");
-    $stmt->bind_param("i", $user_id);
+    $stmt->bind_param("s", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $joined_groups = $result->fetch_all(MYSQLI_ASSOC);
@@ -17,6 +17,16 @@ if ($user_id) {
 }
 
 $current_page = $_GET['page'] ?? 'forum';
+$from = $_GET['from'] ?? null;
+
+// If viewing a post and came from yourposts, highlight "Your Posts"
+if ($from === 'yourposts') {
+    $current_page = 'yourposts';
+} else if ($from === 'forum') {
+    $current_page = 'forum';
+} else if ($from === 'group') {
+    $current_page = 'group';
+}
 ?>
 
 <link rel="stylesheet" href="sidebar1.css" />
@@ -28,9 +38,9 @@ $current_page = $_GET['page'] ?? 'forum';
         <h2 class="section-header" style="padding-left: 50px;">Menu</h2>
 
         <ul class="menu-list">
-            <li class="menu-item <?php echo $current_page === 'forum' || $current_page === 'post' ? 'menu-item-selected' : ''; ?>">
-                <a href="community.php?page=forum" <?php echo $current_page === 'forum' || $current_page === 'post' ? 'class="flex" style="gap: 40px 45px;"' : ''; ?>>
-                    <?php if ($current_page === 'forum' || $current_page === 'post'): ?>
+            <li class="menu-item <?php echo $current_page === 'forum' ? 'menu-item-selected' : ''; ?>">
+                <a href="community.php?page=forum" <?php echo $current_page === 'forum' ? 'class="flex" style="gap: 40px 45px;"' : ''; ?>>
+                    <?php if ($current_page === 'forum'): ?>
                         <span class="selection-indicator"></span>
                     <?php endif; ?>
                     <div class="menu-item-content">
@@ -41,9 +51,10 @@ $current_page = $_GET['page'] ?? 'forum';
                 </a>
             </li>
 
-            <li class="menu-item <?php echo $current_page === 'grouplist' ? 'menu-item-selected' : ''; ?>">
-                <a href="community.php?page=grouplist" <?php echo $current_page === 'grouplist' ? 'class="flex" style="gap: 40px 45px;"' : ''; ?>>
-                    <?php if ($current_page === 'grouplist'): ?>
+            <li
+                class="menu-item <?php echo $current_page === 'grouplist' || $current_page === 'group' ? 'menu-item-selected' : ''; ?>">
+                <a href="community.php?page=grouplist" <?php echo $current_page === 'grouplist' || $current_page === 'group' ? 'class="flex" style="gap: 40px 45px;"' : ''; ?>>
+                    <?php if ($current_page === 'grouplist' || $current_page === 'group'): ?>
                         <span class="selection-indicator"></span>
                     <?php endif; ?>
                     <div class="menu-item-content">
@@ -74,14 +85,13 @@ $current_page = $_GET['page'] ?? 'forum';
         <ul class="tag-list">
             <?php if (!empty($joined_groups)): ?>
                 <?php foreach ($joined_groups as $group): ?>
-                    <li class="tag-item">
-                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/150f9df52207538cceb1bf09657cba2121caf09a?placeholderIfAbsent=true&apiKey=6403d12017614190bab75befab4eae62"
-                            alt="JavaScript tag" class="tag-icon" />
+                    <a href="community.php?page=group&id=<?php echo $group['id']; ?>" class="tag-item">
+                        <img src="<?php echo htmlspecialchars($group['icon_url']); ?>" alt="JavaScript tag" class="tag-icon" />
                         <div class="tag-details">
-                            <span class="tag-name"><?php echo htmlspecialchars($group['name']); ?></span>
+                            <span class="tag-name hover:text-blue-600 hover:underline"><?php echo htmlspecialchars($group['name']); ?></span>
                             <span class="tag-stats"><?php echo number_format($group['member_count']); ?> Members</span>
                         </div>
-                    </li>
+                    </a>
                 <?php endforeach; ?>
             <?php else: ?>
                 <li class="tag-item text-gray-400 px-2">You haven't joined any groups yet.</li>

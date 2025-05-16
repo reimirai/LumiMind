@@ -20,7 +20,7 @@ try {
 
     // Double-check user is a member of the selected group
     $stmt = $conn->prepare("SELECT 1 FROM peer_support_group_members WHERE group_id = ? AND user_id = ?");
-    $stmt->bind_param("ii", $groupId, $userId);
+    $stmt->bind_param("is", $groupId, $userId);
     $stmt->execute();
     $is_member = $stmt->get_result()->num_rows > 0;
     $stmt->close();
@@ -31,7 +31,7 @@ try {
 
     // Insert the post into the `posts` table
     $stmt = $conn->prepare("INSERT INTO posts (group_id, user_id, title, content) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("iiss", $groupId, $userId, $title, $content);
+    $stmt->bind_param("isss", $groupId, $userId, $title, $content);
     if (!$stmt->execute()) {
         throw new Exception('Error inserting the post into the database.');
     }
