@@ -162,7 +162,7 @@ $conn->close();
                 <button class="add-note">+</button>
             </div>
             <div class="note-items">
-                <form action="process_note.php" method="POST" id="note-form">
+                <form action="add_note.php" method="POST" id="note-form">
                     <div id="note-list">
                         <label><input type="checkbox" name="note[]" value="drink_water"> Drink More Water</label><br>
                         <label><input type="checkbox" name="note[]" value="jogging"> Jogging</label><br>

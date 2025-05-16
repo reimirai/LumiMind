@@ -1,0 +1,211 @@
+/* General Font */
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Main Content */
+.content {
+  max-width: 1400px;
+  
+  flex-grow: 1;
+  padding: 30px;
+  margin-left: 240px; 
+  transition: margin-left 0.3s ease;
+}
+
+/* Heading with Yellow Bar */
+.content h1 {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.yellow-bar {
+  width: 6px;
+  height: 30px;
+  background-color: #FFD700;
+  margin-right: 12px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-bar button {
+  border: 1px solid #FFD700;
+  background-color: #fff;
+  color: #FFD700;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.filter-bar button.active,
+.filter-bar button:hover {
+  background-color: #FFD700;
+  color: #fff;
+}
+
+/* Notes Section */
+.notes-list {
+  margin-bottom: 30px;
+}
+
+.notes-list h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Note Wrapper */
+.note-wrapper {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+/* Note Card */
+.note-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.note-card .note-title {
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+}
+
+.note-card .note-desc {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.note-card .note-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Add Note Button */
+.add-note-btn {
+  padding: 8px 16px;
+  background-color: #FFD700;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.add-note-btn:hover {
+  background-color: #FFC300;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+/* Action Buttons - initially hidden */
+.action-buttons {
+  display: none;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.action-buttons button {
+  border: none;
+  background: #f8f9fa;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.action-buttons button:hover {
+  opacity: 0.8;
+}
+
+/* Show on click */
+.note-wrapper.show-actions .action-buttons {
+  display: flex;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.note-card {
+  position: relative;
+  padding: 16px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  border-radius: 8px;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  min-width: 120px;
+}
+
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,264 @@
+/* Base styles and font imports */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+/* Custom font declarations - would need actual font files */
+@font-face {
+    font-family: "Vodafone ExB";
+    src: local("Vodafone ExB");
+    /* Add actual font sources if available */
+}
+
+@font-face {
+    font-family: "Vodafone Rg";
+    src: local("Vodafone Rg");
+    /* Add actual font sources if available */
+}
+
+/* Sidebar container */
+.sidebar1 {
+    background-color: #fff;
+    max-width: 264px;
+    padding-right: 8px;
+    padding-top: 30px;
+    padding-bottom: 424px;
+    overflow: hidden;
+  
+}
+
+.sidebar-title {
+    align-self: stretch;
+    width: 246px;
+    background-color: #fff;
+    height: 80px;
+    padding: 0 5px;
+    overflow: hidden;
+    font-family:
+        Roboto,
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
+    font-size: 20px;
+    color: #000;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 41px;
+}
+
+/* Menu section */
+.menu-section {
+    display: flex;
+    margin-top: 30px;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    font-family:
+        Roboto,
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
+    font-size: 13px;
+    color: #000;
+    font-weight: 500;
+    letter-spacing: 0.65px;
+}
+
+/* Section headers */
+.section-header {
+    align-self: stretch;
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+    color: #808080;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.24px;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Menu list */
+.menu-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+/* Menu items */
+.menu-item {
+    display: flex;
+    width: 100%;
+    max-width: 256px;
+    align-items: center;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.menu-item-selected {
+    background-color: #fcf4ec;
+    color: #f48023;
+    font-weight: 700;
+    white-space: nowrap;
+    display: flex;
+    padding-right: 51px;
+}
+
+.selection-indicator {
+    background-color: #f48023;
+    display: block;
+    width: 5px;
+    height: 41px;
+    flex-shrink: 0;
+}
+
+.menu-item-content {
+    display: flex;
+    margin: auto 0;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+}
+
+.menu-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 18px;
+    flex-shrink: 0;
+}
+
+.menu-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+/* Non-selected menu items */
+.menu-item:not(.menu-item-selected) .menu-item-content {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* Support groups section */
+.support-groups-section {
+    display: flex;
+    margin-top: 30px;
+    padding: 0 47px;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: stretch;
+}
+
+/* Tag list */
+.tag-list {
+    align-self: center;
+    display: flex;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    list-style: none;
+}
+
+/* Tag items */
+.tag-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.tag-item:first-child {
+    margin-top: 0;
+}
+
+/* Tag icons */
+.tag-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 32px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    padding: 6px 0;
+}
+
+/* Specific tag icon shadows */
+.tag-item:nth-child(1) .tag-icon {
+    box-shadow: 0px 3px 3px rgba(255, 171, 97, 0.06);
+}
+
+.tag-item:nth-child(2) .tag-icon {
+    box-shadow: 0px 3px 3px rgba(239, 99, 86, 0.06);
+}
+
+.tag-item:nth-child(4) .tag-icon {
+    box-shadow: 0px 3px 3px rgba(255, 201, 99, 0.06);
+}
+
+.tag-item:nth-child(5) .tag-icon {
+    box-shadow: 0px 3px 3px rgba(102, 102, 102, 0.06);
+}
+
+/* Special case for design tag */
+.tag-icon-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0px 3px 3px rgba(85, 161, 255, 0.06);
+    position: relative;
+    aspect-ratio: 1;
+    width: 32px;
+    padding: 6px;
+}
+
+.tag-icon-bg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.tag-icon-overlay {
+    position: relative;
+    display: flex;
+    min-height: 20px;
+    width: 20px;
+}
+
+/* Tag details */
+.tag-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.tag-name {
+    color: #000;
+    font-family:
+        "Vodafone ExB",
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
+    font-size: 12px;
+}
+
+.tag-stats {
+    color: #97989d;
+    font-family:
+        "Vodafone Rg",
+        -apple-system,
+        Roboto,
+        Helvetica,
+        sans-serif;
+    font-size: 9px;
+    line-height: 2;
+    white-space: nowrap;
+}

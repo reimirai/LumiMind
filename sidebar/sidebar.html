@@ -1,11 +1,11 @@
 <body class="sidebarhtml">
-  <link rel="stylesheet" href="../css/sidebar.css" />
-  <aside class="main-sidebar" id="longSidebar">
-    <div class="logo-section">
-      <img src="../icon/Logo.png" class="logo" />
-      <span class="website-name">LumiMind</span>
-    </div>
-    <ul class="nav-list">
+<link rel="stylesheet" href="../css/sidebar.css" />
+<aside class="main-sidebar" id="longSidebar">
+  <div class="logo-section">
+    <img src="../icon/Logo.png" class="logo" />
+    <span class="website-name">LumiMind</span>
+  </div>
+  <ul class="nav-list">
       <li class="nav-item has-submenu expanded">
         <a href="../MoodTracker/mood_sections.php" class="nav-link menu-heading">
           <img src="../icon/home.png" class="nav-icon" />
@@ -64,48 +64,101 @@
         <img src="../icon/logout.png" class="nav-icon" />
         <span>Logout</span>
       </a>
-    </div>
-    <button id="toggleShortSidebar">≪</button>
-  </aside>
-
-  <aside class="main-sidebar-short" id="shortSidebar" style="display: none;">
-    <div class="logo-section">
-      <img src="../icon/Logo.png" class="logo" />
-    </div>
-    <ul class="nav-list">
-      <li class="nav-item">
-        <a href="../MoodTracker/mood_sections.php" class="nav-link">
-          <img src="../icon/Home.png" class="nav-icon" />
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="../StickyNotes/StickyNote.php" class="nav-link">
-          <img src="../icon/note.jpg" class="nav-icon" />
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="../task/add-task.php" class="nav-link">
-          <img src="../icon/task.png" class="nav-icon" />
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="../Community&Peer/community.php" class="nav-link">
-          <img src="../icon/community.png" class="nav-icon" />
-        </a>
-      </li>
-      <li class="nav-item has-submenu expanded">
-        <a href="../accountManagement/profile.php" class="nav-link menu-heading">
-          <img src="../icon/profile.png" class="nav-icon" />
-        </a>
-      </li>
-    </ul>
-    <div class="logout-section">
-      <a href="logout.html" class="logout-link">
-        <img src="../icon/logout.png" class="nav-icon" />
+    </li>
+     <li class="nav-item has-submenu expanded">
+      <a href="../StickyNotes/StickyNote.php" class="nav-link menu-heading">
+        <img src="../icon/note.jpg" class="nav-icon" />
+        <span>Sticky Notes</span>
       </a>
-    </div>
-    <button id="toggleLongSidebar">≫</button>
-  </aside>
+      <ul class="submenu" Style="Display: None">
+        <li class="submenu-item">
+          <a href="available_task.html" class="submenu-link">Available Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="accepted_task.html" class="submenu-link">Accepted Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="rewards.html" class="submenu-link">Rewards</a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="javascript:void(0);" class="nav-link menu-heading">
+        <img src="../icon/task.png" class="nav-icon" />
+        <span>Task & Rewards</span>
+      </a>
+      <ul class="submenu" Style="Display: None">
+        <li class="submenu-item">
+          <a href="../task/add-task.php" class="submenu-link">Available Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="../task/task-list.php" class="submenu-link">Accepted Task List</a>
+        </li>
+        <li class="submenu-item">
+          <a href="../task/rewards.php" class="submenu-link">Rewards</a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="../Community&Peer/community.php" class="nav-link menu-heading">
+        <img src="../icon/community.png" class="nav-icon" />
+        <span>Community & Peer</span>
+      </a>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="../accountManagement/profile.php" class="nav-link menu-heading">
+        <img src="../icon/profile.png" class="nav-icon" />
+        <span>Profile</span>
+      </a>
+    </li>
+  </ul>
+  <div class="logout-section">
+    <a href="../accountManagement/logout.php" class="logout-link">
+      <img src="../icon/logout.png" class="nav-icon" />
+      <span>Logout</span>
+    </a>
+  </div>
+  <button id="toggleShortSidebar">≪</button>
+</aside>
+
+<aside class="main-sidebar-short" id="shortSidebar" style="display: none;">
+  <div class="logo-section">
+    <img src="../icon/Logo.png" class="logo" />
+  </div>
+  <ul class="nav-list">
+       <li class="nav-item">
+           <a href="../MoodTracker/mood_sections.php" class="nav-link">
+        <img src="../icon/Home.png" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item">
+        <a href="../StickyNotes/StickyNote.php" class="nav-link">
+        <img src="../icon/note.jpg" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="../task/add-task.php" class="nav-link">
+        <img src="../icon/task.png" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item">
+        <a href="../Community&Peer/community.php" class="nav-link">
+        <img src="../icon/community.png" class="nav-icon" />
+      </a>
+    </li>
+    <li class="nav-item has-submenu expanded">
+      <a href="../accountManagement/profile.php" class="nav-link menu-heading">
+        <img src="../icon/profile.png" class="nav-icon" />
+      </a>
+    </li>
+  </ul>
+  <div class="logout-section">
+    <a href="logout.html" class="logout-link">
+      <img src="../icon/logout.png" class="nav-icon" />
+    </a>
+  </div>
+  <button id="toggleLongSidebar">≫</button>
+</aside>
 </body>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -139,12 +192,17 @@
       const parent = this.closest('.nav-item');
       const submenu = parent.querySelector('.submenu');
 
-      if (submenu) {
-        // Toggle submenu visibility
-        const isVisible = submenu.style.display === 'block';
-        submenu.style.display = isVisible ? 'none' : 'block';
-      }
-    });
+document.querySelectorAll('.menu-heading').forEach(function(menuHeading) {
+  menuHeading.addEventListener('click', function () {
+    const parent = this.closest('.nav-item');
+    const submenu = parent.querySelector('.submenu');
+
+    if (submenu) {
+      // Toggle submenu visibility
+      const isVisible = submenu.style.display === 'block';
+      submenu.style.display = isVisible ? 'none' : 'block';
+    }
   });
+});
 
 </script>
